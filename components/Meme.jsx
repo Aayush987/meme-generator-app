@@ -38,7 +38,38 @@ export default function Meme()
         }
       ))
     }
-    
+    function downloadMeme() {
+        const canvas = document.createElement("canvas");
+        canvas.width = 500;
+        canvas.height = 500;
+        const context = canvas.getContext("2d");
+      
+        const img = new Image();
+        img.crossOrigin = "anonymous"; // Allow cross-origin loading of the image
+        img.onload = () => {
+          context.drawImage(img, 0, 0, canvas.width, canvas.height);
+      
+          // Add top text to the canvas
+          context.font = "30px Arial";
+          context.fillStyle = "black";
+          context.textAlign = "center";
+          context.fillText(Meme.topText, canvas.width / 2, 40);
+      
+          // Add bottom text to the canvas
+          context.fillText(Meme.bottomText, canvas.width / 2, canvas.height - 20);
+      
+          // Convert the canvas content to a data URL
+          const dataUrl = canvas.toDataURL("image/jpeg");
+      
+          // Create a temporary anchor element and trigger the download
+          const link = document.createElement("a");
+          link.href = dataUrl;
+          link.download = "meme.jpg";
+          link.click();
+        };
+      
+        img.src = Meme.randomImage;
+      }
     
     return (
         <main>
@@ -47,6 +78,7 @@ export default function Meme()
             <input name = "bottomText" value={Meme.bottomText} onChange={handlevent} className ="Input" type = "text" placeholder="SecondLine"></input>
             <button onClick = {getRandomImg} className="form-btn">Get a new Image</button>
             </div>
+            <button onClick={downloadMeme} className="btn">Download Meme</button>
             <div className="meme">
             <img src = {Meme.randomImage} className="meme-image" alt = "meme-img" />
             <h2 className="meme--text top">{Meme.topText}</h2>
