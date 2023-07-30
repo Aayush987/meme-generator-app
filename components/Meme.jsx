@@ -50,13 +50,25 @@ export default function Meme()
           context.drawImage(img, 0, 0, canvas.width, canvas.height);
       
           // Add top text to the canvas
-          context.font = "30px Arial";
-          context.fillStyle = "black";
+          context.font = "900 32px impact";
           context.textAlign = "center";
-          context.fillText(Meme.topText, canvas.width / 2, 40);
-      
-          // Add bottom text to the canvas
-          context.fillText(Meme.bottomText, canvas.width / 2, canvas.height - 20);
+          const topText = Meme.topText;
+          context.strokeStyle = "black"; // Set border color to black
+          context.lineWidth = 4; // Set border width
+          context.strokeText(topText, canvas.width / 2, 40); // Draw the border
+          context.fillStyle = "white"; // Set text color to white
+          context.fillText(topText, canvas.width / 2, 40); // Draw the text
+         
+          
+          context.font = "900 32px impact";
+          context.textAlign = "center";
+          const bottomText = Meme.bottomText;
+          context.strokeStyle = "black"; // Set border color to black
+          context.lineWidth = 4; // Set border width
+          context.strokeText(bottomText, canvas.width / 2, canvas.height - 20); // Draw the border
+          context.fillStyle = "white"; // Set text color to white
+          context.fillText(bottomText, canvas.width / 2, canvas.height - 20); // Draw the text
+    
       
           // Convert the canvas content to a data URL
           const dataUrl = canvas.toDataURL("image/jpeg");
